@@ -8,6 +8,11 @@ import Logger
 from typing import Union, List, Tuple
 from torchvision.ops import nms
 from util import xywh2xyxy
+import pynvml
+pynvml.nvmlInit()
+# 这里的0是GPU id
+handle = pynvml.nvmlDeviceGetHandleByIndex(0)
+meminfo = pynvml.nvmlDeviceGetMemoryInfo(handle)
 
 batch_norm=nn.BatchNorm2d
 
@@ -178,18 +183,17 @@ class YOLOLayer(nn.Module):
         self.img_size = 0
         self.emb_dim = nE
         self.shift = [1, 3, 5]
-
         self.SmoothL1Loss = nn.SmoothL1Loss()
         self.SoftmaxLoss = nn.CrossEntropyLoss(ignore_index=-1)
         self.CrossEntropyLoss = nn.CrossEntropyLoss()
         self.IDLoss = nn.CrossEntropyLoss(ignore_index=-1)
+        self.classLoss = nn.CrossEntropyLoss(ignore_index=-1)
         self.s_c = nn.Parameter(-4.15 * torch.ones(1))  # -4.15
         self.s_r = nn.Parameter(-4.85 * torch.ones(1))  # -4.85
         self.s_id = nn.Parameter(-2.3 * torch.ones(1))  # -2.3
-
         self.emb_scale = math.sqrt(2) * math.log(self.nID - 1) if self.nID > 1 else 1
 
-    def forward(self, p_cat, img_size, targets=None, classifier=None, test_emb=False):
+    def forward(self, p_cat, img_size, targets=None, classifier=None,class_classifier=None,test_emb=False):
         """
 
         :param p_cat:
@@ -221,13 +225,15 @@ class YOLOLayer(nn.Module):
         p_conf = p[..., 4:6].permute(0, 4, 1, 2, 3)  # Conf
 
         # Training
+        #target class
+
         if targets is not None:
             if test_emb:
                 tconf, tbox, tids = self.build_targets_max(targets)
             else:
-                tconf, tbox, tids = self.build_targets_thres(targets)
+                tconf, tbox, tids,tcls = self.build_targets_thres(targets)
                 Logger.logger.logger.debug("tconf.size {}".format(tconf.shape))
-            tconf, tbox, tids = tconf, tbox, tids
+            tconf, tbox, tids,tcls = tconf, tbox, tids,tcls
             mask = tconf > 0
 
             # Compute losses
@@ -242,12 +248,18 @@ class YOLOLayer(nn.Module):
             lconf = self.SoftmaxLoss(p_conf, tconf)
 
             lid = torch.tensor(0., device=local_device).squeeze()
+            lclass = torch.tensor(0., device=local_device).squeeze()
             emb_mask, _ = mask.max(1)
 
             # For convenience we use max(1) to decide the id, TODO: more reseanable strategy
+            #current tid [1, 4, 19, 34, 1]
             tids, _ = tids.max(1)
-            tids = tids[emb_mask]
-            embedding = p_emb[emb_mask].contiguous()
+            tcls,_=tcls.max(1)
+            #now tid [1, 19, 34, 1]
+            #eliminate mask for testing
+            #tids = tids[emb_mask]
+            #embedding = p_emb[emb_mask].contiguous()
+            embedding = p_emb
             embedding = self.emb_scale * F.normalize(embedding)
             nI = emb_mask.sum().float()
 
@@ -257,15 +269,19 @@ class YOLOLayer(nn.Module):
                 emb_and_gt = torch.cat([embedding, tids.float()], dim=1)
                 return emb_and_gt
 
-            if len(embedding) > 1:
+            if len(embedding) > 0:
                 embedding = embedding
-                print("embedding.device", embedding.device)
+                #print("embedding.device", embedding.device)
+                print(meminfo.used)
+
                 logits = classifier(embedding)
-                lid = self.IDLoss(logits, tids.squeeze())
+                class_infer=class_classifier(embedding)
+                lid = self.IDLoss(logits.permute((0,3,1,2)), tids.squeeze(dim=-1))
+                lclass=self.classLoss(class_infer.permute((0,3,1,2)),tcls.squeeze(dim=-1))
 
             # Sum loss components
-            lbox, lconf, lid = lbox, lconf, lid
-            loss = torch.exp(-self.s_r) * lbox + torch.exp(-self.s_c) * lconf + torch.exp(-self.s_id) * lid + \
+            lbox, lconf, lid,lclass = lbox, lconf, lid,lclass
+            loss = torch.exp(-self.s_r) * lbox + torch.exp(-self.s_c) * lconf + torch.exp(-self.s_id) * (lid+lclass) + \
                    (self.s_r + self.s_c + self.s_id)
 
             loss *= 0.5
@@ -274,6 +290,7 @@ class YOLOLayer(nn.Module):
                 lbox=lbox.cpu().item(),
                 lconf=lconf.cpu().item(),
                 lid=lid.cpu().item(),
+                lclass=lclass.cpu().item(),
                 nT=nT
             )
 
@@ -282,10 +299,11 @@ class YOLOLayer(nn.Module):
         else:
             p_conf = torch.softmax(p_conf, dim=1)[:, 1, ...].unsqueeze(-1)
             p_emb = F.normalize(p_emb.unsqueeze(1).repeat(1, self.nA, 1, 1, 1).contiguous(), dim=-1)
+            p_cls=class_classifier(p_emb)
             # p_emb_up = F.normalize(shift_tensor_vertically(p_emb, -self.shift[self.layer]), dim=-1)
             # p_emb_down = F.normalize(shift_tensor_vertically(p_emb, self.shift[self.layer]), dim=-1)
             # TODO 这里全部预测为 0 类，需要更改。
-            p_cls = torch.zeros((self.nB, self.nA, self.nGh, self.nGw, 1), device=local_device)  # Temp
+            #p_cls = torch.zeros((self.nB, self.nA, self.nGh, self.nGw, 1), device=local_device)  # Temp
             p = torch.cat([p_box, p_conf, p_cls, p_emb], dim=-1)
             # p = torch.cat([p_box, p_conf, p_cls, p_emb, p_emb_up, p_emb_down], dim=-1)
             p[..., :4] = decode_delta_map(p[..., :4], self.anchor_vec.to(p))
@@ -409,9 +427,11 @@ class YOLOLayer(nn.Module):
         tbox = torch.zeros((self.nB, self.nA, self.nGh, self.nGw, 4), device=self.anchor_wh.device)  # batch size, anchors, grid size
         tconf = torch.zeros((self.nB, self.nA, self.nGh, self.nGw), device=self.anchor_wh.device).long()
         tid = -1 * torch.ones((self.nB, self.nA, self.nGh, self.nGw, 1), device=self.anchor_wh.device).long()
+        tclass = -1 * torch.ones((self.nB, self.nA, self.nGh, self.nGw, 1), device=self.anchor_wh.device).long()
         for b in range(self.nB):
             t = target[target[:, 0] == b]
             t_id = t[:, 1].clone().long()
+            t_class=t[:, 0].clone().long()
             t = t[:, [0, 2, 3, 4, 5]]
             nTb = len(t)  # number of targets
             if nTb == 0:
@@ -439,6 +459,7 @@ class YOLOLayer(nn.Module):
             # nms_map = pooling_nms(iou_map, 3)
 
             id_index = iou_map > ID_THRESH
+            cl_index=iou_map>ID_THRESH
             fg_index = iou_map > FG_THRESH
             bg_index = iou_map < BG_THRESH
             ign_index = (iou_map < FG_THRESH) * (iou_map > BG_THRESH)
@@ -449,14 +470,16 @@ class YOLOLayer(nn.Module):
             gt_index = gt_index_map[fg_index]
             gt_box_list = gt_boxes[gt_index]
             gt_id_list = t_id[gt_index_map[id_index]]
+            gt_cl_list=t_class[gt_index_map[cl_index]]
             Logger.logger.logger.debug("gt_index shape {}; gt_index_map shape {}; gt_boxes shape {}".format(gt_index.shape, gt_index_map[id_index].shape, gt_boxes.shape))
 
             if torch.sum(fg_index) > 0:
                 tid[b][id_index] = gt_id_list.unsqueeze(1)
+                tclass[b][id_index] = gt_cl_list.unsqueeze(1)
                 fg_anchor_list = anchor_list.view(self.nA, self.nGh, self.nGw, 4)[fg_index]
                 delta_target = encode_delta(gt_box_list, fg_anchor_list)
                 tbox[b][fg_index] = delta_target
-        return tconf, tbox, tid
+        return tconf, tbox, tid,tclass
 
 
 class YoloHead(nn.Module):
@@ -481,7 +504,8 @@ class YoloHead(nn.Module):
         super(YoloHead, self).__init__()
         self.yolo_list = nn.ModuleList()
         self.nID = int(config['nID'])
-        self.classifier = nn.Linear(int(config['nID']), int(config['embedding_dim']))
+        self.classifier = nn.Linear(int(config['embedding_dim']),int(config['nID']))
+        self.class_classifier=nn.Linear(int(config['embedding_dim']),int(config['classes']))
         self.img_size = (int(config['width']), int(config['height']))
         self.conf_thres = config.get('conf_threshold', 0.5)
         self.nms_thres = config.get('nms_threshold', 0.7)
@@ -576,7 +600,7 @@ class YoloHead(nn.Module):
             total_loss = 0
             loss_dict = {}
             for f, layer in zip(features, self.yolo_list):
-                loss, loss_dict = layer(f, self.img_size, targets, self.classifier, test_emb)
+                loss, loss_dict = layer(f, self.img_size, targets, self.classifier,self.class_classifier, test_emb)
                 total_loss += loss
                 for name, value in loss_dict.items():
                     v_update = loss_dict.get(name, 0.)
@@ -587,7 +611,7 @@ class YoloHead(nn.Module):
         else:
             output = []
             for f, layer in zip(features, self.yolo_list):
-                pred = layer(f, self.img_size)
+                pred = layer(f, self.img_size,targets=None, classifier=None,class_classifier=self.class_classifier)
                 output.append(pred)
 
             pred = self.non_max_suppression(torch.cat(output, 1))
