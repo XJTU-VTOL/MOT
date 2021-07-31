@@ -1,0 +1,57 @@
+2021-07-23 20:26:19,332 - E:\雷博书\MOT\tracker\tracker.py[line:108] - DEBUG: Match 0 trackes after embedding with threshold 0.7
+2021-07-23 20:26:19,873 - E:\雷博书\MOT\tracker\tracker.py[line:137] - DEBUG: Match 1 trackes after IoU with threshold 0.6
+2021-07-23 20:26:19,873 - E:\雷博书\MOT\tracker\tracker.py[line:198] - DEBUG: ===========Frame 2==========
+2021-07-23 20:26:19,874 - E:\雷博书\MOT\tracker\tracker.py[line:199] - DEBUG: Activated: [1]
+2021-07-23 20:26:19,874 - E:\雷博书\MOT\tracker\tracker.py[line:200] - DEBUG: Refind: []
+2021-07-23 20:26:19,874 - E:\雷博书\MOT\tracker\tracker.py[line:201] - DEBUG: Lost: [2]
+2021-07-23 20:26:19,874 - E:\雷博书\MOT\tracker\tracker.py[line:202] - DEBUG: Removed: []
+2021-07-24 12:39:17,848 - E:\雷博书\MOT\tracker\tracker.py[line:107] - DEBUG: Match 0 trackes after embedding with threshold 0.7
+2021-07-24 12:39:17,848 - E:\雷博书\MOT\tracker\tracker.py[line:107] - DEBUG: Match 0 trackes after embedding with threshold 0.7
+2021-07-24 12:39:17,997 - E:\雷博书\MOT\tracker\tracker.py[line:136] - DEBUG: Match 1 trackes after IoU with threshold 0.6
+2021-07-24 12:39:17,997 - E:\雷博书\MOT\tracker\tracker.py[line:136] - DEBUG: Match 1 trackes after IoU with threshold 0.6
+2021-07-24 12:39:17,998 - E:\雷博书\MOT\tracker\tracker.py[line:197] - INFO: ===========Frame 2==========
+2021-07-24 12:39:17,998 - E:\雷博书\MOT\tracker\tracker.py[line:197] - INFO: ===========Frame 2==========
+2021-07-24 12:39:17,998 - E:\雷博书\MOT\tracker\tracker.py[line:198] - INFO: Activated: [1]
+2021-07-24 12:39:17,998 - E:\雷博书\MOT\tracker\tracker.py[line:198] - INFO: Activated: [1]
+2021-07-24 12:39:17,998 - E:\雷博书\MOT\tracker\tracker.py[line:199] - INFO: Refind: []
+2021-07-24 12:39:17,998 - E:\雷博书\MOT\tracker\tracker.py[line:199] - INFO: Refind: []
+2021-07-24 12:39:17,998 - E:\雷博书\MOT\tracker\tracker.py[line:200] - INFO: Lost: [2]
+2021-07-24 12:39:17,998 - E:\雷博书\MOT\tracker\tracker.py[line:200] - INFO: Lost: [2]
+2021-07-24 12:39:17,999 - E:\雷博书\MOT\tracker\tracker.py[line:201] - INFO: Removed: []
+2021-07-24 12:39:17,999 - E:\雷博书\MOT\tracker\tracker.py[line:201] - INFO: Removed: []
+2021-07-24 14:39:46,269 - E:\雷博书\MOT\model\BaseModule.py[line:218] - DEBUG: p.size torch.Size([1, 4, 19, 34, 6])
+2021-07-24 14:42:20,989 - E:\雷博书\MOT\model\BaseModule.py[line:218] - DEBUG: p.size torch.Size([1, 4, 19, 34, 6])
+2021-07-24 14:43:25,951 - E:\雷博书\MOT\model\BaseModule.py[line:218] - DEBUG: p.size torch.Size([1, 4, 19, 34, 6])
+2021-07-24 14:44:16,463 - E:\雷博书\MOT\model\BaseModule.py[line:218] - DEBUG: p.size torch.Size([1, 4, 19, 34, 6])
+2021-07-24 14:46:49,824 - E:\雷博书\MOT\model\BaseModule.py[line:218] - DEBUG: p.size torch.Size([1, 4, 19, 34, 6])
+2021-07-24 14:47:27,000 - E:\雷博书\MOT\model\BaseModule.py[line:218] - DEBUG: p.size torch.Size([1, 4, 19, 34, 6])
+2021-07-24 14:48:14,566 - E:\雷博书\MOT\model\BaseModule.py[line:218] - DEBUG: p.size torch.Size([1, 4, 19, 34, 6])
+2021-07-24 14:48:14,572 - E:\雷博书\MOT\model\BaseModule.py[line:451] - DEBUG: gt_index shape torch.Size([0]); gt_index_map shape torch.Size([0]); gt_boxes shape torch.Size([1, 4])
+2021-07-24 14:48:14,594 - E:\雷博书\MOT\model\BaseModule.py[line:218] - DEBUG: p.size torch.Size([1, 4, 38, 68, 6])
+2021-07-24 14:48:14,601 - E:\雷博书\MOT\model\BaseModule.py[line:451] - DEBUG: gt_index shape torch.Size([0]); gt_index_map shape torch.Size([0]); gt_boxes shape torch.Size([1, 4])
+2021-07-24 14:48:14,621 - E:\雷博书\MOT\model\BaseModule.py[line:218] - DEBUG: p.size torch.Size([1, 4, 76, 136, 6])
+2021-07-24 14:48:14,628 - E:\雷博书\MOT\model\BaseModule.py[line:451] - DEBUG: gt_index shape torch.Size([0]); gt_index_map shape torch.Size([0]); gt_boxes shape torch.Size([1, 4])
+2021-07-24 14:48:52,995 - E:\雷博书\MOT\model\BaseModule.py[line:218] - DEBUG: p.size torch.Size([1, 4, 19, 34, 6])
+2021-07-24 14:48:53,001 - E:\雷博书\MOT\model\BaseModule.py[line:451] - DEBUG: gt_index shape torch.Size([0]); gt_index_map shape torch.Size([0]); gt_boxes shape torch.Size([1, 4])
+2021-07-24 14:48:53,001 - E:\雷博书\MOT\model\BaseModule.py[line:229] - DEBUG: tconf.size torch.Size([1, 4, 19, 34])
+2021-07-24 14:48:53,005 - E:\雷博书\MOT\model\BaseModule.py[line:218] - DEBUG: p.size torch.Size([1, 4, 38, 68, 6])
+2021-07-24 14:48:53,009 - E:\雷博书\MOT\model\BaseModule.py[line:451] - DEBUG: gt_index shape torch.Size([0]); gt_index_map shape torch.Size([0]); gt_boxes shape torch.Size([1, 4])
+2021-07-24 14:48:53,010 - E:\雷博书\MOT\model\BaseModule.py[line:229] - DEBUG: tconf.size torch.Size([1, 4, 38, 68])
+2021-07-24 14:48:53,014 - E:\雷博书\MOT\model\BaseModule.py[line:218] - DEBUG: p.size torch.Size([1, 4, 76, 136, 6])
+2021-07-24 14:48:53,028 - E:\雷博书\MOT\model\BaseModule.py[line:451] - DEBUG: gt_index shape torch.Size([0]); gt_index_map shape torch.Size([0]); gt_boxes shape torch.Size([1, 4])
+2021-07-24 14:48:53,029 - E:\雷博书\MOT\model\BaseModule.py[line:229] - DEBUG: tconf.size torch.Size([1, 4, 76, 136])
+2021-07-24 19:05:06,146 - E:\雷博书\MOT\model\BaseModule.py[line:218] - DEBUG: p.size torch.Size([1, 4, 19, 34, 6])
+2021-07-24 19:05:06,149 - E:\雷博书\MOT\model\BaseModule.py[line:218] - DEBUG: p.size torch.Size([1, 4, 38, 68, 6])
+2021-07-24 19:05:06,152 - E:\雷博书\MOT\model\BaseModule.py[line:218] - DEBUG: p.size torch.Size([1, 4, 76, 136, 6])
+2021-07-24 19:05:35,830 - E:\雷博书\MOT\model\BaseModule.py[line:218] - DEBUG: p.size torch.Size([1, 4, 19, 34, 6])
+2021-07-24 19:05:35,834 - E:\雷博书\MOT\model\BaseModule.py[line:218] - DEBUG: p.size torch.Size([1, 4, 38, 68, 6])
+2021-07-24 19:05:35,837 - E:\雷博书\MOT\model\BaseModule.py[line:218] - DEBUG: p.size torch.Size([1, 4, 76, 136, 6])
+2021-07-24 19:06:01,700 - E:\雷博书\MOT\model\BaseModule.py[line:218] - DEBUG: p.size torch.Size([1, 4, 19, 34, 6])
+2021-07-24 19:06:01,704 - E:\雷博书\MOT\model\BaseModule.py[line:218] - DEBUG: p.size torch.Size([1, 4, 38, 68, 6])
+2021-07-24 19:06:01,712 - E:\雷博书\MOT\model\BaseModule.py[line:218] - DEBUG: p.size torch.Size([1, 4, 76, 136, 6])
+2021-07-24 19:09:41,081 - E:\雷博书\MOT\model\BaseModule.py[line:218] - DEBUG: p.size torch.Size([1, 4, 19, 34, 6])
+2021-07-24 19:09:41,085 - E:\雷博书\MOT\model\BaseModule.py[line:218] - DEBUG: p.size torch.Size([1, 4, 38, 68, 6])
+2021-07-24 19:09:41,089 - E:\雷博书\MOT\model\BaseModule.py[line:218] - DEBUG: p.size torch.Size([1, 4, 76, 136, 6])
+2021-07-24 19:10:24,100 - E:\雷博书\MOT\model\BaseModule.py[line:218] - DEBUG: p.size torch.Size([1, 4, 19, 34, 6])
+2021-07-24 19:15:16,100 - E:\雷博书\MOT\model\BaseModule.py[line:218] - DEBUG: p.size torch.Size([1, 4, 38, 68, 6])
+2021-07-24 19:15:19,024 - E:\雷博书\MOT\model\BaseModule.py[line:218] - DEBUG: p.size torch.Size([1, 4, 76, 136, 6])

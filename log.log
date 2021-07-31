@@ -1,0 +1,180 @@
+2021-07-28 20:30:46,684 - E:\雷博书\MOT\model\BaseModule.py[line:218] - DEBUG: p.size torch.Size([8, 4, 19, 34, 6])
+2021-07-28 20:30:46,691 - E:\雷博书\MOT\model\BaseModule.py[line:452] - DEBUG: gt_index shape torch.Size([0]); gt_index_map shape torch.Size([0]); gt_boxes shape torch.Size([1, 4])
+2021-07-28 20:30:46,697 - E:\雷博书\MOT\model\BaseModule.py[line:452] - DEBUG: gt_index shape torch.Size([0]); gt_index_map shape torch.Size([0]); gt_boxes shape torch.Size([1, 4])
+2021-07-28 20:30:46,702 - E:\雷博书\MOT\model\BaseModule.py[line:452] - DEBUG: gt_index shape torch.Size([0]); gt_index_map shape torch.Size([0]); gt_boxes shape torch.Size([1, 4])
+2021-07-28 20:30:46,706 - E:\雷博书\MOT\model\BaseModule.py[line:452] - DEBUG: gt_index shape torch.Size([0]); gt_index_map shape torch.Size([0]); gt_boxes shape torch.Size([1, 4])
+2021-07-28 20:30:46,715 - E:\雷博书\MOT\model\BaseModule.py[line:452] - DEBUG: gt_index shape torch.Size([0]); gt_index_map shape torch.Size([0]); gt_boxes shape torch.Size([1, 4])
+2021-07-28 20:30:46,720 - E:\雷博书\MOT\model\BaseModule.py[line:452] - DEBUG: gt_index shape torch.Size([0]); gt_index_map shape torch.Size([0]); gt_boxes shape torch.Size([1, 4])
+2021-07-28 20:30:46,724 - E:\雷博书\MOT\model\BaseModule.py[line:452] - DEBUG: gt_index shape torch.Size([0]); gt_index_map shape torch.Size([0]); gt_boxes shape torch.Size([1, 4])
+2021-07-28 20:30:46,729 - E:\雷博书\MOT\model\BaseModule.py[line:452] - DEBUG: gt_index shape torch.Size([0]); gt_index_map shape torch.Size([0]); gt_boxes shape torch.Size([1, 4])
+2021-07-28 20:30:46,729 - E:\雷博书\MOT\model\BaseModule.py[line:229] - DEBUG: tconf.size torch.Size([8, 4, 19, 34])
+2021-07-28 20:30:46,733 - E:\雷博书\MOT\model\BaseModule.py[line:218] - DEBUG: p.size torch.Size([8, 4, 38, 68, 6])
+2021-07-28 20:30:46,744 - E:\雷博书\MOT\model\BaseModule.py[line:452] - DEBUG: gt_index shape torch.Size([0]); gt_index_map shape torch.Size([0]); gt_boxes shape torch.Size([1, 4])
+2021-07-28 20:30:46,750 - E:\雷博书\MOT\model\BaseModule.py[line:452] - DEBUG: gt_index shape torch.Size([0]); gt_index_map shape torch.Size([0]); gt_boxes shape torch.Size([1, 4])
+2021-07-28 20:30:46,755 - E:\雷博书\MOT\model\BaseModule.py[line:452] - DEBUG: gt_index shape torch.Size([0]); gt_index_map shape torch.Size([0]); gt_boxes shape torch.Size([1, 4])
+2021-07-28 20:30:46,761 - E:\雷博书\MOT\model\BaseModule.py[line:452] - DEBUG: gt_index shape torch.Size([0]); gt_index_map shape torch.Size([0]); gt_boxes shape torch.Size([1, 4])
+2021-07-28 20:30:46,766 - E:\雷博书\MOT\model\BaseModule.py[line:452] - DEBUG: gt_index shape torch.Size([0]); gt_index_map shape torch.Size([0]); gt_boxes shape torch.Size([1, 4])
+2021-07-28 20:30:46,776 - E:\雷博书\MOT\model\BaseModule.py[line:452] - DEBUG: gt_index shape torch.Size([0]); gt_index_map shape torch.Size([0]); gt_boxes shape torch.Size([1, 4])
+2021-07-28 20:30:46,781 - E:\雷博书\MOT\model\BaseModule.py[line:452] - DEBUG: gt_index shape torch.Size([0]); gt_index_map shape torch.Size([0]); gt_boxes shape torch.Size([1, 4])
+2021-07-28 20:30:46,786 - E:\雷博书\MOT\model\BaseModule.py[line:452] - DEBUG: gt_index shape torch.Size([0]); gt_index_map shape torch.Size([0]); gt_boxes shape torch.Size([1, 4])
+2021-07-28 20:30:46,787 - E:\雷博书\MOT\model\BaseModule.py[line:229] - DEBUG: tconf.size torch.Size([8, 4, 38, 68])
+2021-07-28 20:30:46,791 - E:\雷博书\MOT\model\BaseModule.py[line:218] - DEBUG: p.size torch.Size([8, 4, 76, 136, 6])
+2021-07-28 20:30:46,807 - E:\雷博书\MOT\model\BaseModule.py[line:452] - DEBUG: gt_index shape torch.Size([0]); gt_index_map shape torch.Size([0]); gt_boxes shape torch.Size([1, 4])
+2021-07-28 20:30:46,812 - E:\雷博书\MOT\model\BaseModule.py[line:452] - DEBUG: gt_index shape torch.Size([0]); gt_index_map shape torch.Size([0]); gt_boxes shape torch.Size([1, 4])
+2021-07-28 20:30:46,818 - E:\雷博书\MOT\model\BaseModule.py[line:452] - DEBUG: gt_index shape torch.Size([0]); gt_index_map shape torch.Size([0]); gt_boxes shape torch.Size([1, 4])
+2021-07-28 20:30:46,824 - E:\雷博书\MOT\model\BaseModule.py[line:452] - DEBUG: gt_index shape torch.Size([0]); gt_index_map shape torch.Size([0]); gt_boxes shape torch.Size([1, 4])
+2021-07-28 20:30:46,828 - E:\雷博书\MOT\model\BaseModule.py[line:452] - DEBUG: gt_index shape torch.Size([0]); gt_index_map shape torch.Size([0]); gt_boxes shape torch.Size([1, 4])
+2021-07-28 20:30:46,838 - E:\雷博书\MOT\model\BaseModule.py[line:452] - DEBUG: gt_index shape torch.Size([0]); gt_index_map shape torch.Size([0]); gt_boxes shape torch.Size([1, 4])
+2021-07-28 20:30:46,842 - E:\雷博书\MOT\model\BaseModule.py[line:452] - DEBUG: gt_index shape torch.Size([0]); gt_index_map shape torch.Size([0]); gt_boxes shape torch.Size([1, 4])
+2021-07-28 20:30:46,846 - E:\雷博书\MOT\model\BaseModule.py[line:452] - DEBUG: gt_index shape torch.Size([0]); gt_index_map shape torch.Size([0]); gt_boxes shape torch.Size([1, 4])
+2021-07-28 20:30:46,847 - E:\雷博书\MOT\model\BaseModule.py[line:229] - DEBUG: tconf.size torch.Size([8, 4, 76, 136])
+2021-07-28 20:33:16,653 - E:\雷博书\MOT\tracker\tracker.py[line:210] - INFO: ===========Frame 2==========
+2021-07-28 20:33:16,656 - E:\雷博书\MOT\tracker\tracker.py[line:211] - INFO: Activated: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]
+2021-07-28 20:33:16,658 - E:\雷博书\MOT\tracker\tracker.py[line:212] - INFO: Refind: []
+2021-07-28 20:33:16,660 - E:\雷博书\MOT\tracker\tracker.py[line:213] - INFO: Lost: []
+2021-07-28 20:33:16,663 - E:\雷博书\MOT\tracker\tracker.py[line:214] - INFO: Removed: []
+2021-07-28 20:33:37,337 - E:\雷博书\MOT\tracker\tracker.py[line:210] - INFO: ===========Frame 3==========
+2021-07-28 20:33:37,339 - E:\雷博书\MOT\tracker\tracker.py[line:211] - INFO: Activated: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]
+2021-07-28 20:33:37,341 - E:\雷博书\MOT\tracker\tracker.py[line:212] - INFO: Refind: []
+2021-07-28 20:33:37,343 - E:\雷博书\MOT\tracker\tracker.py[line:213] - INFO: Lost: []
+2021-07-28 20:33:37,345 - E:\雷博书\MOT\tracker\tracker.py[line:214] - INFO: Removed: []
+2021-07-28 20:33:42,656 - E:\雷博书\MOT\tracker\tracker.py[line:210] - INFO: ===========Frame 4==========
+2021-07-28 20:33:42,660 - E:\雷博书\MOT\tracker\tracker.py[line:211] - INFO: Activated: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]
+2021-07-28 20:33:42,662 - E:\雷博书\MOT\tracker\tracker.py[line:212] - INFO: Refind: []
+2021-07-28 20:33:42,664 - E:\雷博书\MOT\tracker\tracker.py[line:213] - INFO: Lost: []
+2021-07-28 20:33:42,665 - E:\雷博书\MOT\tracker\tracker.py[line:214] - INFO: Removed: []
+2021-07-28 20:36:18,433 - E:\雷博书\MOT\tracker\tracker.py[line:210] - INFO: ===========Frame 2==========
+2021-07-28 20:36:18,434 - E:\雷博书\MOT\tracker\tracker.py[line:211] - INFO: Activated: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]
+2021-07-28 20:36:18,436 - E:\雷博书\MOT\tracker\tracker.py[line:212] - INFO: Refind: []
+2021-07-28 20:36:18,437 - E:\雷博书\MOT\tracker\tracker.py[line:213] - INFO: Lost: []
+2021-07-28 20:36:18,439 - E:\雷博书\MOT\tracker\tracker.py[line:214] - INFO: Removed: []
+2021-07-28 20:36:18,652 - E:\雷博书\MOT\tracker\tracker.py[line:210] - INFO: ===========Frame 3==========
+2021-07-28 20:36:18,653 - E:\雷博书\MOT\tracker\tracker.py[line:211] - INFO: Activated: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]
+2021-07-28 20:36:18,655 - E:\雷博书\MOT\tracker\tracker.py[line:212] - INFO: Refind: []
+2021-07-28 20:36:18,656 - E:\雷博书\MOT\tracker\tracker.py[line:213] - INFO: Lost: []
+2021-07-28 20:36:18,657 - E:\雷博书\MOT\tracker\tracker.py[line:214] - INFO: Removed: []
+2021-07-28 20:36:18,855 - E:\雷博书\MOT\tracker\tracker.py[line:210] - INFO: ===========Frame 4==========
+2021-07-28 20:36:18,857 - E:\雷博书\MOT\tracker\tracker.py[line:211] - INFO: Activated: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]
+2021-07-28 20:36:18,858 - E:\雷博书\MOT\tracker\tracker.py[line:212] - INFO: Refind: []
+2021-07-28 20:36:18,859 - E:\雷博书\MOT\tracker\tracker.py[line:213] - INFO: Lost: []
+2021-07-28 20:36:18,861 - E:\雷博书\MOT\tracker\tracker.py[line:214] - INFO: Removed: []
+2021-07-28 20:51:57,879 - E:\雷博书\MOT\tracker\tracker.py[line:210] - INFO: ===========Frame 2==========
+2021-07-28 20:51:57,880 - E:\雷博书\MOT\tracker\tracker.py[line:211] - INFO: Activated: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]
+2021-07-28 20:51:57,881 - E:\雷博书\MOT\tracker\tracker.py[line:212] - INFO: Refind: []
+2021-07-28 20:51:57,883 - E:\雷博书\MOT\tracker\tracker.py[line:213] - INFO: Lost: []
+2021-07-28 20:51:57,884 - E:\雷博书\MOT\tracker\tracker.py[line:214] - INFO: Removed: []
+2021-07-28 20:51:58,095 - E:\雷博书\MOT\tracker\tracker.py[line:210] - INFO: ===========Frame 3==========
+2021-07-28 20:51:58,096 - E:\雷博书\MOT\tracker\tracker.py[line:211] - INFO: Activated: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]
+2021-07-28 20:51:58,097 - E:\雷博书\MOT\tracker\tracker.py[line:212] - INFO: Refind: []
+2021-07-28 20:51:58,098 - E:\雷博书\MOT\tracker\tracker.py[line:213] - INFO: Lost: []
+2021-07-28 20:51:58,099 - E:\雷博书\MOT\tracker\tracker.py[line:214] - INFO: Removed: []
+2021-07-28 20:51:58,299 - E:\雷博书\MOT\tracker\tracker.py[line:210] - INFO: ===========Frame 4==========
+2021-07-28 20:51:58,300 - E:\雷博书\MOT\tracker\tracker.py[line:211] - INFO: Activated: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]
+2021-07-28 20:51:58,302 - E:\雷博书\MOT\tracker\tracker.py[line:212] - INFO: Refind: []
+2021-07-28 20:51:58,303 - E:\雷博书\MOT\tracker\tracker.py[line:213] - INFO: Lost: []
+2021-07-28 20:51:58,304 - E:\雷博书\MOT\tracker\tracker.py[line:214] - INFO: Removed: []
+2021-07-28 20:53:10,954 - E:\雷博书\MOT\tracker\tracker.py[line:210] - INFO: ===========Frame 2==========
+2021-07-28 20:53:10,956 - E:\雷博书\MOT\tracker\tracker.py[line:211] - INFO: Activated: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]
+2021-07-28 20:53:10,957 - E:\雷博书\MOT\tracker\tracker.py[line:212] - INFO: Refind: []
+2021-07-28 20:53:10,959 - E:\雷博书\MOT\tracker\tracker.py[line:213] - INFO: Lost: []
+2021-07-28 20:53:10,960 - E:\雷博书\MOT\tracker\tracker.py[line:214] - INFO: Removed: []
+2021-07-28 20:53:11,168 - E:\雷博书\MOT\tracker\tracker.py[line:210] - INFO: ===========Frame 3==========
+2021-07-28 20:53:11,169 - E:\雷博书\MOT\tracker\tracker.py[line:211] - INFO: Activated: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]
+2021-07-28 20:53:11,170 - E:\雷博书\MOT\tracker\tracker.py[line:212] - INFO: Refind: []
+2021-07-28 20:53:11,172 - E:\雷博书\MOT\tracker\tracker.py[line:213] - INFO: Lost: []
+2021-07-28 20:53:11,173 - E:\雷博书\MOT\tracker\tracker.py[line:214] - INFO: Removed: []
+2021-07-28 20:53:11,374 - E:\雷博书\MOT\tracker\tracker.py[line:210] - INFO: ===========Frame 4==========
+2021-07-28 20:53:11,375 - E:\雷博书\MOT\tracker\tracker.py[line:211] - INFO: Activated: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]
+2021-07-28 20:53:11,376 - E:\雷博书\MOT\tracker\tracker.py[line:212] - INFO: Refind: []
+2021-07-28 20:53:11,378 - E:\雷博书\MOT\tracker\tracker.py[line:213] - INFO: Lost: []
+2021-07-28 20:53:11,379 - E:\雷博书\MOT\tracker\tracker.py[line:214] - INFO: Removed: []
+2021-07-28 20:54:58,401 - E:\雷博书\MOT\tracker\tracker.py[line:210] - INFO: ===========Frame 2==========
+2021-07-28 20:54:58,403 - E:\雷博书\MOT\tracker\tracker.py[line:211] - INFO: Activated: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]
+2021-07-28 20:54:58,404 - E:\雷博书\MOT\tracker\tracker.py[line:212] - INFO: Refind: []
+2021-07-28 20:54:58,405 - E:\雷博书\MOT\tracker\tracker.py[line:213] - INFO: Lost: []
+2021-07-28 20:54:58,406 - E:\雷博书\MOT\tracker\tracker.py[line:214] - INFO: Removed: []
+2021-07-28 20:54:58,594 - E:\雷博书\MOT\tracker\tracker.py[line:210] - INFO: ===========Frame 3==========
+2021-07-28 20:54:58,595 - E:\雷博书\MOT\tracker\tracker.py[line:211] - INFO: Activated: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]
+2021-07-28 20:54:58,596 - E:\雷博书\MOT\tracker\tracker.py[line:212] - INFO: Refind: []
+2021-07-28 20:54:58,598 - E:\雷博书\MOT\tracker\tracker.py[line:213] - INFO: Lost: []
+2021-07-28 20:54:58,599 - E:\雷博书\MOT\tracker\tracker.py[line:214] - INFO: Removed: []
+2021-07-28 20:54:58,786 - E:\雷博书\MOT\tracker\tracker.py[line:210] - INFO: ===========Frame 4==========
+2021-07-28 20:54:58,787 - E:\雷博书\MOT\tracker\tracker.py[line:211] - INFO: Activated: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]
+2021-07-28 20:54:58,789 - E:\雷博书\MOT\tracker\tracker.py[line:212] - INFO: Refind: []
+2021-07-28 20:54:58,790 - E:\雷博书\MOT\tracker\tracker.py[line:213] - INFO: Lost: []
+2021-07-28 20:54:58,791 - E:\雷博书\MOT\tracker\tracker.py[line:214] - INFO: Removed: []
+2021-07-28 20:57:51,420 - E:\雷博书\MOT\tracker\tracker.py[line:210] - INFO: ===========Frame 2==========
+2021-07-28 20:57:51,421 - E:\雷博书\MOT\tracker\tracker.py[line:211] - INFO: Activated: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]
+2021-07-28 20:57:51,423 - E:\雷博书\MOT\tracker\tracker.py[line:212] - INFO: Refind: []
+2021-07-28 20:57:51,424 - E:\雷博书\MOT\tracker\tracker.py[line:213] - INFO: Lost: []
+2021-07-28 20:57:51,425 - E:\雷博书\MOT\tracker\tracker.py[line:214] - INFO: Removed: []
+2021-07-28 20:57:51,620 - E:\雷博书\MOT\tracker\tracker.py[line:210] - INFO: ===========Frame 3==========
+2021-07-28 20:57:51,621 - E:\雷博书\MOT\tracker\tracker.py[line:211] - INFO: Activated: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]
+2021-07-28 20:57:51,622 - E:\雷博书\MOT\tracker\tracker.py[line:212] - INFO: Refind: []
+2021-07-28 20:57:51,624 - E:\雷博书\MOT\tracker\tracker.py[line:213] - INFO: Lost: []
+2021-07-28 20:57:51,625 - E:\雷博书\MOT\tracker\tracker.py[line:214] - INFO: Removed: []
+2021-07-28 20:57:51,815 - E:\雷博书\MOT\tracker\tracker.py[line:210] - INFO: ===========Frame 4==========
+2021-07-28 20:57:51,817 - E:\雷博书\MOT\tracker\tracker.py[line:211] - INFO: Activated: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]
+2021-07-28 20:57:51,818 - E:\雷博书\MOT\tracker\tracker.py[line:212] - INFO: Refind: []
+2021-07-28 20:57:51,819 - E:\雷博书\MOT\tracker\tracker.py[line:213] - INFO: Lost: []
+2021-07-28 20:57:51,820 - E:\雷博书\MOT\tracker\tracker.py[line:214] - INFO: Removed: []
+2021-07-28 21:00:09,465 - E:\雷博书\MOT\tracker\tracker.py[line:210] - INFO: ===========Frame 2==========
+2021-07-28 21:00:09,467 - E:\雷博书\MOT\tracker\tracker.py[line:211] - INFO: Activated: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]
+2021-07-28 21:00:09,468 - E:\雷博书\MOT\tracker\tracker.py[line:212] - INFO: Refind: []
+2021-07-28 21:00:09,470 - E:\雷博书\MOT\tracker\tracker.py[line:213] - INFO: Lost: []
+2021-07-28 21:00:09,471 - E:\雷博书\MOT\tracker\tracker.py[line:214] - INFO: Removed: []
+2021-07-28 21:00:09,662 - E:\雷博书\MOT\tracker\tracker.py[line:210] - INFO: ===========Frame 3==========
+2021-07-28 21:00:09,664 - E:\雷博书\MOT\tracker\tracker.py[line:211] - INFO: Activated: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]
+2021-07-28 21:00:09,665 - E:\雷博书\MOT\tracker\tracker.py[line:212] - INFO: Refind: []
+2021-07-28 21:00:09,666 - E:\雷博书\MOT\tracker\tracker.py[line:213] - INFO: Lost: []
+2021-07-28 21:00:09,667 - E:\雷博书\MOT\tracker\tracker.py[line:214] - INFO: Removed: []
+2021-07-28 21:00:09,866 - E:\雷博书\MOT\tracker\tracker.py[line:210] - INFO: ===========Frame 4==========
+2021-07-28 21:00:09,868 - E:\雷博书\MOT\tracker\tracker.py[line:211] - INFO: Activated: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]
+2021-07-28 21:00:09,869 - E:\雷博书\MOT\tracker\tracker.py[line:212] - INFO: Refind: []
+2021-07-28 21:00:09,870 - E:\雷博书\MOT\tracker\tracker.py[line:213] - INFO: Lost: []
+2021-07-28 21:00:09,871 - E:\雷博书\MOT\tracker\tracker.py[line:214] - INFO: Removed: []
+2021-07-28 21:03:22,732 - E:\雷博书\MOT\tracker\tracker.py[line:210] - INFO: ===========Frame 2==========
+2021-07-28 21:03:22,734 - E:\雷博书\MOT\tracker\tracker.py[line:211] - INFO: Activated: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]
+2021-07-28 21:03:22,735 - E:\雷博书\MOT\tracker\tracker.py[line:212] - INFO: Refind: []
+2021-07-28 21:03:22,736 - E:\雷博书\MOT\tracker\tracker.py[line:213] - INFO: Lost: []
+2021-07-28 21:03:22,738 - E:\雷博书\MOT\tracker\tracker.py[line:214] - INFO: Removed: []
+2021-07-28 21:03:22,930 - E:\雷博书\MOT\tracker\tracker.py[line:210] - INFO: ===========Frame 3==========
+2021-07-28 21:03:22,931 - E:\雷博书\MOT\tracker\tracker.py[line:211] - INFO: Activated: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]
+2021-07-28 21:03:22,932 - E:\雷博书\MOT\tracker\tracker.py[line:212] - INFO: Refind: []
+2021-07-28 21:03:22,934 - E:\雷博书\MOT\tracker\tracker.py[line:213] - INFO: Lost: []
+2021-07-28 21:03:22,935 - E:\雷博书\MOT\tracker\tracker.py[line:214] - INFO: Removed: []
+2021-07-28 21:03:23,135 - E:\雷博书\MOT\tracker\tracker.py[line:210] - INFO: ===========Frame 4==========
+2021-07-28 21:03:23,136 - E:\雷博书\MOT\tracker\tracker.py[line:211] - INFO: Activated: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]
+2021-07-28 21:03:23,137 - E:\雷博书\MOT\tracker\tracker.py[line:212] - INFO: Refind: []
+2021-07-28 21:03:23,139 - E:\雷博书\MOT\tracker\tracker.py[line:213] - INFO: Lost: []
+2021-07-28 21:03:23,140 - E:\雷博书\MOT\tracker\tracker.py[line:214] - INFO: Removed: []
+2021-07-28 21:04:50,600 - E:\雷博书\MOT\tracker\tracker.py[line:210] - INFO: ===========Frame 2==========
+2021-07-28 21:04:50,602 - E:\雷博书\MOT\tracker\tracker.py[line:211] - INFO: Activated: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]
+2021-07-28 21:04:50,603 - E:\雷博书\MOT\tracker\tracker.py[line:212] - INFO: Refind: []
+2021-07-28 21:04:50,604 - E:\雷博书\MOT\tracker\tracker.py[line:213] - INFO: Lost: []
+2021-07-28 21:04:50,605 - E:\雷博书\MOT\tracker\tracker.py[line:214] - INFO: Removed: []
+2021-07-28 21:04:50,794 - E:\雷博书\MOT\tracker\tracker.py[line:210] - INFO: ===========Frame 3==========
+2021-07-28 21:04:50,796 - E:\雷博书\MOT\tracker\tracker.py[line:211] - INFO: Activated: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]
+2021-07-28 21:04:50,797 - E:\雷博书\MOT\tracker\tracker.py[line:212] - INFO: Refind: []
+2021-07-28 21:04:50,798 - E:\雷博书\MOT\tracker\tracker.py[line:213] - INFO: Lost: []
+2021-07-28 21:04:50,799 - E:\雷博书\MOT\tracker\tracker.py[line:214] - INFO: Removed: []
+2021-07-28 21:04:50,984 - E:\雷博书\MOT\tracker\tracker.py[line:210] - INFO: ===========Frame 4==========
+2021-07-28 21:04:50,985 - E:\雷博书\MOT\tracker\tracker.py[line:211] - INFO: Activated: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]
+2021-07-28 21:04:50,986 - E:\雷博书\MOT\tracker\tracker.py[line:212] - INFO: Refind: []
+2021-07-28 21:04:50,987 - E:\雷博书\MOT\tracker\tracker.py[line:213] - INFO: Lost: []
+2021-07-28 21:04:50,988 - E:\雷博书\MOT\tracker\tracker.py[line:214] - INFO: Removed: []
+2021-07-28 21:06:11,816 - E:\雷博书\MOT\tracker\tracker.py[line:210] - INFO: ===========Frame 2==========
+2021-07-28 21:06:11,817 - E:\雷博书\MOT\tracker\tracker.py[line:211] - INFO: Activated: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]
+2021-07-28 21:06:11,819 - E:\雷博书\MOT\tracker\tracker.py[line:212] - INFO: Refind: []
+2021-07-28 21:06:11,820 - E:\雷博书\MOT\tracker\tracker.py[line:213] - INFO: Lost: []
+2021-07-28 21:06:11,821 - E:\雷博书\MOT\tracker\tracker.py[line:214] - INFO: Removed: []
+2021-07-28 21:06:12,004 - E:\雷博书\MOT\tracker\tracker.py[line:210] - INFO: ===========Frame 3==========
+2021-07-28 21:06:12,005 - E:\雷博书\MOT\tracker\tracker.py[line:211] - INFO: Activated: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]
+2021-07-28 21:06:12,007 - E:\雷博书\MOT\tracker\tracker.py[line:212] - INFO: Refind: []
+2021-07-28 21:06:12,008 - E:\雷博书\MOT\tracker\tracker.py[line:213] - INFO: Lost: []
+2021-07-28 21:06:12,009 - E:\雷博书\MOT\tracker\tracker.py[line:214] - INFO: Removed: []
+2021-07-28 21:06:12,197 - E:\雷博书\MOT\tracker\tracker.py[line:210] - INFO: ===========Frame 4==========
+2021-07-28 21:06:12,198 - E:\雷博书\MOT\tracker\tracker.py[line:211] - INFO: Activated: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]
+2021-07-28 21:06:12,199 - E:\雷博书\MOT\tracker\tracker.py[line:212] - INFO: Refind: []
+2021-07-28 21:06:12,200 - E:\雷博书\MOT\tracker\tracker.py[line:213] - INFO: Lost: []
+2021-07-28 21:06:12,201 - E:\雷博书\MOT\tracker\tracker.py[line:214] - INFO: Removed: []
