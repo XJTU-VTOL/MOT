@@ -8,7 +8,7 @@ import torch
 from dataset.dataset import *
 class Test_RealDataset(unittest.TestCase):
     def test_D(self):
-        trainset_paths ={"CA003":"D://multi-object//MOT//data//CA003.train"}
+        trainset_paths ={"CA003":"D://multi-object//MOT//dataset//test.train"}
         dataset_root = "D://multi-object//MOT"
 
 
