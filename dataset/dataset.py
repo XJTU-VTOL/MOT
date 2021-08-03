@@ -5,6 +5,7 @@ import os.path as osp
 import random
 import time
 from collections import OrderedDict
+import  xml.dom.minidom
 
 import cv2
 import numpy as np
@@ -31,7 +32,7 @@ def parser_for_xml(path):
 
     '''
     # 读取文件
-    dom = parse(path)
+    dom = xml.dom.minidom.parse(path)
     # 获取文档元素对象
     data = dom.documentElement
     # 获取 student
@@ -50,7 +51,7 @@ def parser_for_xml(path):
         ymax = object.getElementsByTagName('ymax')[0].childNodes[0].nodeValue
         ymax = eval(ymax)
         l = ans.append([cls, -1, xmin, ymin, ymax - ymin, xmax - xmin])
-        ans = np.array(ans)
+        ans = np.array(ans,'float32')
 
     return ans
 
@@ -231,13 +232,13 @@ class LoadImagesAndLabels:  # for training
         # Load labels
         if os.path.isfile(label_path):
             labels0 = parser_for_xml(label_path)
-
+            #print(labels0)
             # Normalized xywh to pixel xyxy format
             labels = labels0.copy()
-            labels[:, 2] = ratio * w * (labels0[:, 2] - labels0[:, 4] / 2) + padw
-            labels[:, 3] = ratio * h * (labels0[:, 3] - labels0[:, 5] / 2) + padh
-            labels[:, 4] = ratio * w * (labels0[:, 2] + labels0[:, 4] / 2) + padw
-            labels[:, 5] = ratio * h * (labels0[:, 3] + labels0[:, 5] / 2) + padh
+            labels[:, 2] =  (labels0[:, 2] - labels0[:, 4] / 2) + padw
+            labels[:, 3] =  (labels0[:, 3] - labels0[:, 5] / 2) + padh
+            labels[:, 4] =  (labels0[:, 2] + labels0[:, 4] / 2) + padw
+            labels[:, 5] = (labels0[:, 3] + labels0[:, 5] / 2) + padh
         else:
             labels = np.array([])
 
@@ -258,6 +259,8 @@ class LoadImagesAndLabels:  # for training
             time.sleep(10)
 
         nL = len(labels)
+
+
         if nL > 0:
             # convert xyxy to xywh
             labels[:, 2:6] = xyxy2xywh(labels[:, 2:6].copy())  # / height
@@ -265,6 +268,7 @@ class LoadImagesAndLabels:  # for training
             labels[:, 3] /= height
             labels[:, 4] /= width
             labels[:, 5] /= height
+
         if self.augment:
             # random left-right flip
             lr_flip = True
@@ -405,13 +409,14 @@ class JointDataset(LoadImagesAndLabels):  # for training
                 self.img_files[ds] = list(filter(lambda x: len(x) > 0, self.img_files[ds]))
 
             self.label_files[ds] = [
-                x.replace('images', 'labels_with_ids').replace('.png', '.txt').replace('.jpg', '.txt')
+                x.replace('CA003_img', 'CA003_ann').replace('.png', '.xml').replace('.jpg', '.xml')
                 for x in self.img_files[ds]]
 
         for ds, label_paths in self.label_files.items():
             max_index = -1
             for lp in label_paths:
-                lb = parser_for_xml(lp)
+                #lb = parser_for_xml(lp) for out xml annotation
+                lb=parser_for_xml(lp)
                 if len(lb) < 1:
                     continue
                 if len(lb.shape) < 2:
