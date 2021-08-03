@@ -429,7 +429,7 @@ class YOLOLayer(nn.Module):
         tid = -1 * torch.ones((self.nB, self.nA, self.nGh, self.nGw, 1), device=self.anchor_wh.device).long()
         tclass = -1 * torch.ones((self.nB, self.nA, self.nGh, self.nGw, 1), device=self.anchor_wh.device).long()
         for b in range(self.nB):
-            t = target[target[:, 0] == b]
+            t = target[b,:]
             t_id = t[:, 1].clone().long()
             t_class=t[:, 0].clone().long()
             t = t[:, [0, 2, 3, 4, 5]]
@@ -445,7 +445,7 @@ class YOLOLayer(nn.Module):
             gxy[:, 0] = torch.clamp(gxy[:, 0], min=0, max=self.nGw - 1)
             gxy[:, 1] = torch.clamp(gxy[:, 1], min=0, max=self.nGh - 1)
 
-            gt_boxes = torch.cat([gxy, gwh], dim=1)  # Shape Ngx4 (xc, yc, w, h)
+            gt_boxes = torch.cat([gxy, gwh], dim=1).cuda()  # Shape Ngx4 (xc, yc, w, h)
 
             anchor_mesh = generate_anchor(self.nGh, self.nGw, self.anchor_wh)
             anchor_list = anchor_mesh.permute(0, 2, 3, 1).contiguous().view(-1, 4)  # Shpae (nA x nGh x nGw) x 4
