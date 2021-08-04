@@ -1,6 +1,6 @@
 import glob
 import math
-import os
+
 import os.path as osp
 import random
 import time
@@ -10,7 +10,7 @@ import  xml.dom.minidom
 import cv2
 import numpy as np
 import torch
-
+from pathlib import Path
 from torch.utils.data import Dataset
 
 def xyxy2xywh(x):
@@ -50,8 +50,8 @@ def parser_for_xml(path):
         ymin = eval(ymin)
         ymax = object.getElementsByTagName('ymax')[0].childNodes[0].nodeValue
         ymax = eval(ymax)
-        l = ans.append([cls, -1, xmin, ymin, ymax - ymin, xmax - xmin])
-        ans = np.array(ans,'float32')
+        ans.append([cls, -1, xmin, ymin, ymax - ymin, xmax - xmin])
+    ans = np.array(ans,'float32')
 
     return ans
 
@@ -199,9 +199,11 @@ class LoadImagesAndLabels:  # for training
         return self.get_data(img_path, label_path)
 
     def get_data(self, img_path, label_path):
+        img_path=Path(img_path)
+        label_path=Path(label_path)
         height = self.height
         width = self.width
-        img = cv2.imread(img_path)  # BGR
+        img = cv2.imread(str(img_path))  # BGR
         if img is None:
             raise ValueError('File corrupt {}'.format(img_path))
         augment_hsv = True
@@ -230,8 +232,8 @@ class LoadImagesAndLabels:  # for training
         img, ratio, padw, padh = letterbox(img, height=height, width=width)
 
         # Load labels
-        if os.path.isfile(label_path):
-            labels0 = parser_for_xml(label_path)
+        if (label_path.is_file()):
+            labels0 = parser_for_xml(str(label_path))
             #print(labels0)
             # Normalized xywh to pixel xyxy format
             labels = labels0.copy()
@@ -395,9 +397,16 @@ def collate_fn(batch):
 
 
 class JointDataset(LoadImagesAndLabels):  # for training
-    def __init__(self, root, paths, img_size=(1088, 608), augment=False, transforms=None):
-
+    def __init__(self, root,paths, img_size=(1088, 608), augment=False, transforms=None):
+        '''
+        :param root: the root of your dataset
+        :param paths:  the path of .train file  view datatest/test.train for example  to generate .train file run dataset/walk.py
+        :param img_size: the size of input img
+        :param augment: whether to use data augmentation
+        :param transforms: the function in torchvision.transforms, usually we only use ToTensor(). This is to change the numpy array pictures to tensors
+        '''
         dataset_names = paths.keys()
+        root=Path(root)
         self.img_files = OrderedDict()
         self.label_files = OrderedDict()
         self.tid_num = OrderedDict()
@@ -405,11 +414,11 @@ class JointDataset(LoadImagesAndLabels):  # for training
         for ds, path in paths.items():
             with open(path, 'r') as file:
                 self.img_files[ds] = file.readlines()
-                self.img_files[ds] = [osp.join(root, x.strip()) for x in self.img_files[ds]]
-                self.img_files[ds] = list(filter(lambda x: len(x) > 0, self.img_files[ds]))
+                self.img_files[ds] = [str(root.joinpath(Path(x.replace('\n','')))) for x in self.img_files[ds]]
+                self.img_files[ds] = list(filter(lambda x: len(str(x)) > 0, self.img_files[ds]))
 
             self.label_files[ds] = [
-                x.replace('CA003_img', 'CA003_ann').replace('.png', '.xml').replace('.jpg', '.xml')
+                x.replace('img', 'ann').replace('.png', '.xml').replace('.jpg', '.xml')
                 for x in self.img_files[ds]]
 
         for ds, label_paths in self.label_files.items():

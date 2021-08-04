@@ -8,8 +8,8 @@ import torch
 from dataset.dataset import *
 class Test_RealDataset(unittest.TestCase):
     def test_D(self):
-        trainset_paths ={"CA003":"D://multi-object//MOT//dataset//test.train"}
-        dataset_root = "D://multi-object//MOT"
+        trainset_paths ={"MIX":"E://MOT_lyh//MOT_lyh//MOT//dataset//test.train"}
+        dataset_root = "D://multi-object//MOT_lyh//MOT"
 
 
         transforms = T.Compose([T.ToTensor()])
