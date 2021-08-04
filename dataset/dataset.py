@@ -284,6 +284,12 @@ class LoadImagesAndLabels:  # for training
             img = self.transforms(img)
 
         return img, labels, img_path, (h, w)
+    '''
+    img: images in tensor form if transformed else in np array
+    labels:cls,id,left_up_x,left_up_y,right_down_x,right_down_y in list 
+    img_path:the path for the output images
+    (h,w): the height and width for the output images
+    '''
 
     def __len__(self):
         return self.nF  # number of batches
