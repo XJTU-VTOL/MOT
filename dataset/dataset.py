@@ -57,128 +57,20 @@ def parser_for_xml(path):
 
 
 '''
- LoadImages and LoadVideo are for tracking
- LoadImagesAndLabels and JointDataset are for trainging.
  JointDataset would allow you to gather data from various datasets in a mixed order while LoadImagesAndLabels can only assign data by the order your files are placed
 '''
 
 
-class LoadImages:  # for inference
-    def __init__(self, path, img_size=(1088, 608)):
-        if os.path.isdir(path):
-            image_format = ['.jpg', '.jpeg', '.png', '.tif']
-            self.files = sorted(glob.glob('%s/*.*' % path))
-            self.files = list(filter(lambda x: os.path.splitext(x)[1].lower() in image_format, self.files))
-        elif os.path.isfile(path):
-            self.files = [path]
-
-        self.nF = len(self.files)  # number of image files
-        self.width = img_size[0]
-        self.height = img_size[1]
-        self.count = 0
-
-        assert self.nF > 0, 'No images found in ' + path
-
-    def __iter__(self):
-        self.count = -1
-        return self
-
-    def __next__(self):
-        self.count += 1
-        if self.count == self.nF:
-            raise StopIteration
-        img_path = self.files[self.count]
-
-        # Read image
-        img0 = cv2.imread(img_path)  # BGR
-        assert img0 is not None, 'Failed to load ' + img_path
-
-        # Padded resize
-        img, _, _, _ = letterbox(img0, height=self.height, width=self.width)
-
-        # Normalize RGB
-        img = img[:, :, ::-1].transpose(2, 0, 1)
-        img = np.ascontiguousarray(img, dtype=np.float32)
-        img /= 255.0
-
-        # cv2.imwrite(img_path + '.letterbox.jpg', 255 * img.transpose((1, 2, 0))[:, :, ::-1])  # save letterbox image
-        return img_path, img, img0
-
-    def __getitem__(self, idx):
-        idx = idx % self.nF
-        img_path = self.files[idx]
-
-        # Read image
-        img0 = cv2.imread(img_path)  # BGR
-        assert img0 is not None, 'Failed to load ' + img_path
-
-        # Padded resize
-        img, _, _, _ = letterbox(img0, height=self.height, width=self.width)
-
-        # Normalize RGB
-        img = img[:, :, ::-1].transpose(2, 0, 1)
-        img = np.ascontiguousarray(img, dtype=np.float32)
-        img /= 255.0
-
-        return img_path, img, img0
-
-    def __len__(self):
-        return self.nF  # number of files
-
-
-class LoadVideo:  # for inference
-    def __init__(self, path, img_size=(1088, 608)):
-        if not os.path.isfile(path):
-            raise FileExistsError
-
-        self.cap = cv2.VideoCapture(path)
-        self.frame_rate = int(round(self.cap.get(cv2.CAP_PROP_FPS)))
-        self.vw = int(self.cap.get(cv2.CAP_PROP_FRAME_WIDTH))
-        self.vh = int(self.cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
-        self.vn = int(self.cap.get(cv2.CAP_PROP_FRAME_COUNT))
-
-        self.width = img_size[0]
-        self.height = img_size[1]
-        self.count = 0
-
-        self.w, self.h = self.get_size(self.vw, self.vh, self.width, self.height)
-        print('Lenth of the video: {:d} frames'.format(self.vn))
-
-    def get_size(self, vw, vh, dw, dh):
-        wa, ha = float(dw) / vw, float(dh) / vh
-        a = min(wa, ha)
-        return int(vw * a), int(vh * a)
-
-    def __iter__(self):
-        self.count = -1
-        return self
-
-    def __next__(self):
-        self.count += 1
-        if self.count == len(self):
-            raise StopIteration
-        # Read image
-        res, img0 = self.cap.read()  # BGR
-        assert img0 is not None, 'Failed to load frame {:d}'.format(self.count)
-        img0 = cv2.resize(img0, (self.w, self.h))
-
-        # Padded resize
-        img, _, _, _ = letterbox(img0, height=self.height, width=self.width)
-
-        # Normalize RGB
-        img = img[:, :, ::-1].transpose(2, 0, 1)
-        img = np.ascontiguousarray(img, dtype=np.float32)
-        img /= 255.0
-
-        # cv2.imwrite(img_path + '.letterbox.jpg', 255 * img.transpose((1, 2, 0))[:, :, ::-1])  # save letterbox image
-        return self.count, img, img0
-
-    def __len__(self):
-        return self.vn  # number of files
-
 
 class LoadImagesAndLabels:  # for training
     def __init__(self, path, img_size=(1088, 608), augment=False, transforms=None):
+
+        '''
+                :param paths:  the path of .train file  view datatest/test.train for example  to generate .train file run dataset/walk.py
+                :param img_size: the size of input img
+                :param augment: whether to use data augmentation
+                :param transforms: the function in torchvision.transforms, usually we only use ToTensor(). This is to change the numpy array pictures to tensors
+        '''
         with open(path, 'r') as file:
             self.img_files = file.readlines()
             self.img_files = [x.replace('\n', '') for x in self.img_files]
@@ -481,5 +373,12 @@ class JointDataset(LoadImagesAndLabels):  # for training
                 labels[i, 1] += self.tid_start_index[ds]
 
         return imgs, labels, img_path, (h, w)
+
+    '''
+        img: images in tensor form if transformed else in np array
+        labels:cls,id,left_up_x,left_up_y,right_down_x,right_down_y in list 
+        img_path:the path for the output images
+        (h,w): the height and width for the output images
+        '''
 
 
