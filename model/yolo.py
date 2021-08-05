@@ -7,6 +7,7 @@ from tracker.tracker import Tracker
 from .model_util import parse_model_cfg, extract_net_and_yolo_param
 from dataset.util import collate_fn
 from dataset import ToyDataset
+from dataset.dataset import JointDataset
 from metric import TrackMetric
 from typing import List, Union, Dict
 from torch.utils.data import DataLoader
@@ -72,14 +73,14 @@ class YoloTrainModel(pl.LightningModule):
 
     def train_dataloader(self) -> Union[DataLoader, List[DataLoader], Dict[str, DataLoader]]:
         dataset_config = self.config['dataset']
-        dataset = ToyDataset(dataset_config)
+        dataset = JointDataset(dataset_config["root"], dataset_config["path"])
         dataloader = DataLoader(dataset, batch_size=4, num_workers=4, collate_fn=collate_fn)
 
         return dataloader
 
     def val_dataloader(self) -> Union[DataLoader, List[DataLoader]]:
         dataset_config = self.config['dataset']
-        dataset = ToyDataset(dataset_config)
+        dataset = JointDataset(dataset_config["root"], dataset_config["path"])
         dataloader = DataLoader(dataset, batch_size=4, num_workers=4, collate_fn=collate_fn)
 
         return dataloader

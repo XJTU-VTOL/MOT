@@ -5,4 +5,5 @@ cfg:
   conf_threshold: 0.7
   IoU_threshold: 0.6
   dataset:
-    name: ToyDataset
+    root: E:\\3d_detector\\Data2021\\MIX
+    path: test.train
