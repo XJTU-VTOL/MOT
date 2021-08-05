@@ -29,6 +29,7 @@ def parser_for_xml(path):
 
     :param path: annotations path
     :return: [[14, -1, 978, 215, 304, 272]]
+               cls，id,x,y,x,y
 
     '''
     # 读取文件
@@ -40,8 +41,15 @@ def parser_for_xml(path):
     ans = []
     for object in objects:
         cls = object.getElementsByTagName("name")[0].childNodes[0].nodeValue
-        cls = (ord(cls[1]) - 64) * 10 + ord(cls[-1]) - ord('0')
-        id = -1
+        cls = str(cls)
+        if ("_"in cls):
+            num=cls.split("_")
+            id=eval(num[-1])
+        else:
+             id=-1
+
+        cls = (ord(cls[1]) - 65)*4 + ord(cls[4]) - ord('0')
+
         xmin = object.getElementsByTagName('xmin')[0].childNodes[0].nodeValue
         xmin = eval(xmin)
         xmax = object.getElementsByTagName('xmax')[0].childNodes[0].nodeValue
@@ -50,7 +58,7 @@ def parser_for_xml(path):
         ymin = eval(ymin)
         ymax = object.getElementsByTagName('ymax')[0].childNodes[0].nodeValue
         ymax = eval(ymax)
-        ans.append([cls, -1, xmin, ymin, ymax - ymin, xmax - xmin])
+        ans.append([cls,id, xmin, ymin, xmax, ymax])
     ans = np.array(ans,'float32')
 
     return ans
