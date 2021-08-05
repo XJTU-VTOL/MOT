@@ -7,3 +7,5 @@ test/__pycache__
 tracker/__pycache__
 venv
 CA003
+*.train
+*.val
