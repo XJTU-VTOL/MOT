@@ -43,7 +43,7 @@ class Tracker:
             （N， 6 + D）
             x1, y1, x2, y2, conf, cls, embedding
         :return:
-            (M, 4)
+            (M, 6)
             x1, y1, x2, y2, cls, id 所有追踪到的物体
         """
         if self.frame_id == 0:
@@ -208,10 +208,10 @@ class Tracker:
         # TODO 设置 Log 等级
         if Logger.logger is not None:
             Logger.logger.logger.info('===========Frame {}=========='.format(self.frame_id))
-            Logger.logger.logger.info('Activated: {}'.format([track.track_id for track in activated_tracks]))
-            Logger.logger.logger.info('Refind: {}'.format([track.track_id for track in refined_tracks]))
-            Logger.logger.logger.info('Lost: {}'.format([track.track_id for track in lost_tracks]))
-            Logger.logger.logger.info('Removed: {}'.format([track.track_id for track in removed_tracks]))
+            Logger.logger.logger.info('Activated: {}'.format(len(activated_tracks)))
+            Logger.logger.logger.info('Refind: {}'.format(len(refined_tracks)))
+            Logger.logger.logger.info('Lost: {}'.format(len(lost_tracks)))
+            Logger.logger.logger.info('Removed: {}'.format(len(removed_tracks)))
             # print('Final {} s'.format(t5-t4))
         return output_tracks
 

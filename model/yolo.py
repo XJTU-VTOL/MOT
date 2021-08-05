@@ -32,7 +32,7 @@ class YoloTrainModel(pl.LightningModule):
         self.config['dataset']['image_size'] = (int(self.hyperparameters['height']), int(self.hyperparameters['width']))
 
     def training_step(self, batch, batch_idx):
-        images, targets = batch
+        images, targets, paths, sizes = batch
         features = self.backbone(images)
         loss, loss_item = self.head(features, targets)
 
@@ -45,12 +45,16 @@ class YoloTrainModel(pl.LightningModule):
         self.tracker.reset()
 
     def validation_step(self, batch, batch_idx):
-        images, targets = batch
+        images, targets, paths, sizes = batch
         features = self.backbone(images)
         preds = self.head(features)
         for batch_id, frame in enumerate(preds):
-            frame = frame.cpu().numpy()
-            tracked_result = self.tracker.update(frame)
+            if frame is not None:
+                frame = frame.cpu().numpy()
+                tracked_result = self.tracker.update(frame)
+                tracked_result = torch.tensor(tracked_result).to(targets.device).float()
+            else:
+                tracked_result = torch.ones((0, 7), device=targets.device)
 
             # 选取对应的 targets
             batch_target = targets[targets[:, 0] == batch_id]
@@ -58,11 +62,10 @@ class YoloTrainModel(pl.LightningModule):
             batch_target = batch_target[:, [3, 4, 5, 6, 1, 2]]
             frame_id = torch.ones((len(batch_target), 1), device=batch_target.device) * self.tracker.frame_id
             batch_target = torch.cat([frame_id, batch_target], dim=1)
-
-            tracked_result = torch.from_numpy(tracked_result).to(batch_target.device).float()
             self.track_metric.update(tracked_result, batch_target)
 
     def validation_epoch_end(self, outputs):
+        self.tracker.reset()
         Accuracy, Recall = self.track_metric.compute()
 
         for name, val in Accuracy.items():

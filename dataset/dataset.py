@@ -380,6 +380,8 @@ class JointDataset(LoadImagesAndLabels):  # for training
             if labels[i, 1] > -1:
                 labels[i, 1] += self.tid_start_index[ds]
 
+        imgs = torch.from_numpy(imgs).permute(2, 0, 1).float()
+        labels = torch.from_numpy(labels).float()
         return imgs, labels, img_path, (h, w)
 
     '''

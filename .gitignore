@@ -6,6 +6,9 @@ model/__pycache__
 test/__pycache__
 tracker/__pycache__
 venv
+data
 CA003
 *.train
 *.val
+*.log
+lightning_logs/

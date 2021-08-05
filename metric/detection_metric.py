@@ -196,13 +196,18 @@ class TrackMetric:
         for cls in cls_id:
             cls = int(cls.item())
 
-            pred_cls = pred[pred[:, 5] == cls]
-            target_cls = target[target[:, 5] == cls]
-
+            if len(pred.shape) == 2:
+                pred_cls = pred[pred[:, 5] == cls]
+            else:
+                pred_cls = torch.ones((0, 7), device=pred.device, dtype=pred.dtype)
             track_hist = self.pred_classes.get(cls, [])
             track_hist.append(pred_cls)
             self.pred_classes[cls] = track_hist
 
+            if len(target) == 2:
+                target_cls = target[target[:, 5] == cls]
+            else:
+                target_cls = torch.ones((0, 7), device=target.device, dtype=target.dtype)
             track_hist = self.target_classes.get(cls, [])
             track_hist.append(target_cls)
             self.target_classes[cls] = track_hist

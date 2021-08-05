@@ -6,4 +6,6 @@ cfg:
   IoU_threshold: 0.6
   dataset:
     root: E:\\3d_detector\\Data2021\\MIX
-    path: test.train
+    path: 
+      TRAIN: new.train
+      VAL: new.val

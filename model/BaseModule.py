@@ -272,7 +272,6 @@ class YOLOLayer(nn.Module):
             if len(embedding) > 0:
                 embedding = embedding
                 #print("embedding.device", embedding.device)
-                print(meminfo.used)
 
                 logits = classifier(embedding)
                 class_infer=class_classifier(embedding)
@@ -429,7 +428,7 @@ class YOLOLayer(nn.Module):
         tid = -1 * torch.ones((self.nB, self.nA, self.nGh, self.nGw, 1), device=self.anchor_wh.device).long()
         tclass = -1 * torch.ones((self.nB, self.nA, self.nGh, self.nGw, 1), device=self.anchor_wh.device).long()
         for b in range(self.nB):
-            t = target[b,:]
+            t = target[target[:, 0] == b]
             t_id = t[:, 1].clone().long()
             t_class=t[:, 0].clone().long()
             t = t[:, [0, 2, 3, 4, 5]]
@@ -479,7 +478,7 @@ class YOLOLayer(nn.Module):
                 fg_anchor_list = anchor_list.view(self.nA, self.nGh, self.nGw, 4)[fg_index]
                 delta_target = encode_delta(gt_box_list, fg_anchor_list)
                 tbox[b][fg_index] = delta_target
-        return tconf, tbox, tid,tclass
+        return tconf, tbox, tid, tclass
 
 
 class YoloHead(nn.Module):
