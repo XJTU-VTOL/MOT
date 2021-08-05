@@ -202,7 +202,8 @@ class YOLOLayer(nn.Module):
             (batch_id, cls, id, x, y, w, h)
         :param classifier:
         :param test_emb:
-        :return:
+        :return:batch_id, cls, id, x, y, w, h when predict
+                loss,loss_dict(dictionary) when train
         """
         local_device = p_cat.device
 
