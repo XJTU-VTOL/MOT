@@ -306,7 +306,7 @@ class JointDataset(LoadImagesAndLabels):  # for training
     def __init__(self, root,paths, img_size=(1088, 608), augment=False, transforms=None):
         '''
         :param root: the root of your dataset
-        :param paths:  the path of .train file  view datatest/test.train for example  to generate .train file run dataset/walk.py
+        :param paths: {"key":"the path of .train file"} view datatest/test.train for example  to generate .train file run dataset/walk.py
         :param img_size: the size of input img
         :param augment: whether to use data augmentation
         :param transforms: the function in torchvision.transforms, usually we only use ToTensor(). This is to change the numpy array pictures to tensors
