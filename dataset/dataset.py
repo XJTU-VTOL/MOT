@@ -29,6 +29,7 @@ def parser_for_xml(path):
 
     :param path: annotations path
     :return: [[14, -1, 978, 215, 304, 272]]
+               cls，id,x,y,x,y
 
     '''
     # 读取文件
@@ -40,8 +41,15 @@ def parser_for_xml(path):
     ans = []
     for object in objects:
         cls = object.getElementsByTagName("name")[0].childNodes[0].nodeValue
-        cls = (ord(cls[1]) - 64) * 10 + ord(cls[-1]) - ord('0')
-        id = -1
+        cls = str(cls)
+        if ("_"in cls):
+            num=cls.split("_")
+            id=eval(num[-1])
+        else:
+             id=-1
+
+        cls = (ord(cls[1]) - 65)*4 + ord(cls[4]) - ord('0')
+
         xmin = object.getElementsByTagName('xmin')[0].childNodes[0].nodeValue
         xmin = eval(xmin)
         xmax = object.getElementsByTagName('xmax')[0].childNodes[0].nodeValue
@@ -50,7 +58,7 @@ def parser_for_xml(path):
         ymin = eval(ymin)
         ymax = object.getElementsByTagName('ymax')[0].childNodes[0].nodeValue
         ymax = eval(ymax)
-        ans.append([cls, -1, xmin, ymin, ymax - ymin, xmax - xmin])
+        ans.append([cls,id, xmin, ymin, xmax, ymax])
     ans = np.array(ans,'float32')
 
     return ans
@@ -178,7 +186,7 @@ class LoadImagesAndLabels:  # for training
         return img, labels, img_path, (h, w)
     '''
     img: images in tensor form if transformed else in np array
-    labels:cls,id,left_up_x,left_up_y,right_down_x,right_down_y in list 
+    labels:cls,id,x,y,w,h in list 
     img_path:the path for the output images
     (h,w): the height and width for the output images
     '''
@@ -298,7 +306,7 @@ class JointDataset(LoadImagesAndLabels):  # for training
     def __init__(self, root,paths, img_size=(1088, 608), augment=False, transforms=None):
         '''
         :param root: the root of your dataset
-        :param paths:  the path of .train file  view datatest/test.train for example  to generate .train file run dataset/walk.py
+        :param paths: {"key":"the path of .train file"} view datatest/test.train for example  to generate .train file run dataset/walk.py
         :param img_size: the size of input img
         :param augment: whether to use data augmentation
         :param transforms: the function in torchvision.transforms, usually we only use ToTensor(). This is to change the numpy array pictures to tensors

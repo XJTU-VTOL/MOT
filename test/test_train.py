@@ -8,9 +8,7 @@ import torch.nn as nn
 import json
 from model.model_util import extract_net_and_yolo_param
 from dataset.dataset import *
-'''
-TODO:backbone don't need to train? no losses?
-'''
+
 class module_test(unittest.TestCase):
 
     def test_backbone(self, return_result=False):
