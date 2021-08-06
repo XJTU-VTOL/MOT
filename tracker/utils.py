@@ -138,7 +138,15 @@ def iou_distance(atracks, btracks):
         btlbrs = btracks
     else:
         atlbrs = np.stack([track.tlbr for track in atracks], axis=0)
-        btlbrs = np.stack([track.tlbr for track in btracks], axis=0)
+        btlbrs = np.stack([track.tlbr
+
+
+
+
+
+
+
+                           for track in btracks], axis=0)
 
     _ious = IoU_wrapper(atlbrs, btlbrs)
     cost_matrix = 1 - _ious

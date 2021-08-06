@@ -31,6 +31,9 @@ class Tracker:
 
     def reset(self):
         self.frame_id = 0
+        self.tracked_tracks.clear()
+        self.lost_tracks.clear()
+        self.removed_tracks.clear()
 
     def update(self, preds: np.ndarray):
         """

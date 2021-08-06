@@ -12,3 +12,4 @@ CA003
 *.val
 *.log
 lightning_logs/
+data/
