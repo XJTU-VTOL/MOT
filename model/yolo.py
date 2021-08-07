@@ -8,7 +8,7 @@ from .model_util import parse_model_cfg, extract_net_and_yolo_param
 from dataset.util import collate_fn
 from dataset import ToyDataset
 from dataset.dataset import JointDataset
-from metric import TrackMetric
+from metric import DetectionMetric
 from typing import List, Union, Dict
 from torch.utils.data import DataLoader
 from util import xywh2xyxy
@@ -26,7 +26,7 @@ class YoloTrainModel(pl.LightningModule):
 
         self.head = YoloHead(self.hyperparameters, yolo_defs)
         self.tracker = Tracker()
-        self.track_metric = TrackMetric()
+        self.track_metric = DetectionMetric()
 
         # 从 .cfg 文件获取信息
         self.config['dataset']['image_size'] = (int(self.hyperparameters['height']), int(self.hyperparameters['width']))

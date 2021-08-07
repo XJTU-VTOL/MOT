@@ -39,6 +39,9 @@ class BaseTrack(object):
     def mark_lost(self):
         self.state = TrackState.Lost
 
+    def mark_removed(self):
+        self.state = TrackState.Removed
+
 
 class STrack(BaseTrack):
     """
