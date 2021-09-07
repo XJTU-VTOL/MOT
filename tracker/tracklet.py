@@ -49,7 +49,7 @@ class STrack(BaseTrack):
 
     Only after activating the STrack object can you update it.
     """
-    def __init__(self, tlwh, score, temp_feat, buffer_size=30):
+    def __init__(self, tlwh, score, temp_feat, buffer_size=30,cls=0):
         # wait activate
         self.kalman_filter = None
         self.mean, self.covariance = None, None  # 物体的状态，参考卡尔曼滤波注释
@@ -65,6 +65,7 @@ class STrack(BaseTrack):
         self.update_features(temp_feat)
         self.features = deque([], maxlen=buffer_size)
         self.alpha = 0.9
+        self.cls=cls
 
     def update_features(self, feat):
         """

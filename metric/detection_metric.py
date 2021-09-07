@@ -10,7 +10,7 @@ class DetectionMetric:
     """
     Author: 雷博书
     """
-    def __init__(self, num_cls:int = 10, IoUs:float = 0.5):
+    def __init__(self, num_cls:int = 17, IoUs:float = 0.1):
         """
         :param num_cls:
             所有类别数量
@@ -40,29 +40,41 @@ class DetectionMetric:
         # pred = pred[conf > self.conf_theshold]
 
         ''' Step 2 Calculate IoU '''
+        if(len(pred)==0):
+            return
+        print("pred",pred)
         cls_id = torch.unique(target[:, 4])
         for cls in cls_id:
             cls = int(cls.item())
-
+            print("cls",cls)
+            #print("pred",pred)
             pred_cls = pred[pred[:, 4] == cls]
             target_cls = target[target[:, 4] == cls]
 
-            if len(pred_cls) == 0:
+            if len(pred_cls) == 0 or len(pred_cls[0])==1:
+                print("0 pred_cls")
                 continue
 
+            print("pred_cls", pred_cls)
             pred_cls_tlbr = pred_cls[:, :4]  # (x1, y1, x2, y2)
             target_cls_tlbr = target_cls[:, :4]
+            print("pred_cls_tlbr",pred_cls_tlbr)
+            print("target_cls_tlbr",target_cls_tlbr)
             IoU = box_iou(target_cls_tlbr, pred_cls_tlbr)
-
+            print("IOU",IoU)
             IoU_numpy = IoU.cpu().numpy()
-            row_ind, col_ind = linear_sum_assignment(IoU_numpy, maximize=True)
-            select_IoU = IoU[row_ind, col_ind]
+            try:
+                row_ind, col_ind = linear_sum_assignment(IoU_numpy, maximize=True)
+                select_IoU = IoU[row_ind, col_ind]
 
-            TP = np.sum(np.where(select_IoU > self.iou, 1, 0))
-            FN = target_cls.shape[0] - TP
-            FP = pred_cls.shape[0] - TP
+                TP = np.sum(np.where(select_IoU.cpu() > self.iou, 1, 0))
+                FN = target_cls.shape[0] - TP
+                FP = pred_cls.shape[0] - TP
+                print("detection_metric: ", "TP ", TP, "FN ", FN, "FP  ", FP)
+                self.classes[cls] += np.array([TP, FN, FP])
 
-            self.classes[cls] += np.array([TP, FN, FP])
+            except:
+                print("IoU_numpy",IoU_numpy)
 
     def compute(self):
         """
@@ -77,6 +89,7 @@ class DetectionMetric:
 
         for key, stat in self.classes.items():
             TP, FN, FP = stat
+
 
             try:
                 Accuracy[key] = TP / (TP + FP)

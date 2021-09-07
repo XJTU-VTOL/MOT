@@ -13,6 +13,8 @@ from typing import List, Union, Dict
 from torch.utils.data import DataLoader
 from util import xywh2xyxy
 
+
+
 class YoloTrainModel(pl.LightningModule):
     def __init__(self, opt, config):
         super(YoloTrainModel, self).__init__()
@@ -27,12 +29,14 @@ class YoloTrainModel(pl.LightningModule):
         self.head = YoloHead(self.hyperparameters, yolo_defs)
         self.tracker = Tracker()
         self.track_metric = DetectionMetric()
-
+        self.width=self.hyperparameters['width']
+        self.height=self.hyperparameters['height']
         # 从 .cfg 文件获取信息
         self.config['dataset']['image_size'] = (int(self.hyperparameters['height']), int(self.hyperparameters['width']))
 
     def training_step(self, batch, batch_idx):
         images, targets, paths, sizes = batch
+
         features = self.backbone(images)
         loss, loss_item = self.head(features, targets)
 
@@ -46,6 +50,7 @@ class YoloTrainModel(pl.LightningModule):
 
     def validation_step(self, batch, batch_idx):
         images, targets, paths, sizes = batch
+
         features = self.backbone(images)
         preds = self.head(features)
         for batch_id, frame in enumerate(preds):
@@ -53,15 +58,21 @@ class YoloTrainModel(pl.LightningModule):
                 frame = frame.cpu().numpy()
                 tracked_result = self.tracker.update(frame)
                 tracked_result = torch.tensor(tracked_result).to(targets.device).float()
+                print("tracked_result cls ",tracked_result[:,-2])
             else:
                 tracked_result = torch.ones((0, 7), device=targets.device)
 
             # 选取对应的 targets
             batch_target = targets[targets[:, 0] == batch_id]
+            batch_target[:,3]*=self.width
+            batch_target[:,4]*=self.height
+            batch_target[:,5]*=self.width
+            batch_target[:,6]*=self.height
             batch_target[:, 3:] = xywh2xyxy(batch_target[:, 3:])
-            batch_target = batch_target[:, [3, 4, 5, 6, 1, 2]]
+            #batch_target = batch_target[:, [3, 4, 5, 6, 1, 2]]
+            batch_target = batch_target[:, [3, 4, 5, 6, 1]]
             frame_id = torch.ones((len(batch_target), 1), device=batch_target.device) * self.tracker.frame_id
-            batch_target = torch.cat([frame_id, batch_target], dim=1)
+           # batch_target = torch.cat([frame_id, batch_target], dim=1)
             self.track_metric.update(tracked_result, batch_target)
 
     def validation_epoch_end(self, outputs):
@@ -77,14 +88,14 @@ class YoloTrainModel(pl.LightningModule):
     def train_dataloader(self) -> Union[DataLoader, List[DataLoader], Dict[str, DataLoader]]:
         dataset_config = self.config['dataset']
         dataset = JointDataset(dataset_config["root"], dataset_config["path"])
-        dataloader = DataLoader(dataset, batch_size=4, num_workers=4, collate_fn=collate_fn)
+        dataloader = DataLoader(dataset, batch_size=2, num_workers=2, collate_fn=collate_fn)
 
         return dataloader
 
     def val_dataloader(self) -> Union[DataLoader, List[DataLoader]]:
         dataset_config = self.config['dataset']
         dataset = JointDataset(dataset_config["root"], dataset_config["path"])
-        dataloader = DataLoader(dataset, batch_size=4, num_workers=4, collate_fn=collate_fn)
+        dataloader = DataLoader(dataset, batch_size=2, num_workers=2, collate_fn=collate_fn)
 
         return dataloader
 
@@ -96,3 +107,36 @@ class YoloTrainModel(pl.LightningModule):
                                                          gamma=0.1)
 
         return [optimizer], [scheduler]
+
+    def test_step(self, batch, batch_idx):
+        images, targets, paths, sizes = batch
+        features = self.backbone(images)
+        preds = self.head(features)
+        for batch_id, frame in enumerate(preds):
+            if frame is not None:
+                frame = frame.cpu().numpy()
+                tracked_result = self.tracker.update(frame)
+                tracked_result = torch.tensor(tracked_result).to(targets.device).float()
+                # print("tracked_result ",tracked_result)
+                print("tracked_result cls ", tracked_result[:, -2])
+            else:
+                tracked_result = torch.ones((0, 7), device=targets.device)
+
+            # 选取对应的 targets
+            batch_target = targets[targets[:, 0] == batch_id]
+            batch_target[:, 3:] = xywh2xyxy(batch_target[:, 3:])
+            # batch_target = batch_target[:, [3, 4, 5, 6, 1, 2]]
+            batch_target = batch_target[:, [3, 4, 5, 6, 1]]
+            frame_id = torch.ones((len(batch_target), 1), device=batch_target.device) * self.tracker.frame_id
+            # batch_target = torch.cat([frame_id, batch_target], dim=1)
+            self.track_metric.update(tracked_result, batch_target)
+
+    def test_epoch_end(self, outputs):
+        self.tracker.reset()
+        Accuracy, Recall = self.track_metric.compute()
+
+        for name, val in Accuracy.items():
+            self.log("test_acc_" + str(name), val, on_epoch=True, on_step=False)
+
+        for name, val in Recall.items():
+            self.log("tets_recall_" + str(name), val, on_epoch=True, on_step=False)

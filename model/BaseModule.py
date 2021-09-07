@@ -190,7 +190,8 @@ class YOLOLayer(nn.Module):
         self.classLoss = nn.CrossEntropyLoss(ignore_index=-1)
         self.s_c = nn.Parameter(-4.15 * torch.ones(1))  # -4.15
         self.s_r = nn.Parameter(-4.85 * torch.ones(1))  # -4.85
-        self.s_id = nn.Parameter(-2.3 * torch.ones(1))  # -2.3
+        self.s_id = nn.Parameter(-4 * torch.ones(1))  # -2.3
+        self.s_cls=nn.Parameter(-4 * torch.ones(1))
         self.emb_scale = math.sqrt(2) * math.log(self.nID - 1) if self.nID > 1 else 1
 
     def forward(self, p_cat, img_size, targets=None, classifier=None,class_classifier=None,test_emb=False):
@@ -276,13 +277,19 @@ class YOLOLayer(nn.Module):
 
                 logits = classifier(embedding)
                 class_infer=class_classifier(embedding)
+                _, p_cls = torch.max(class_infer, -1)
+                #print("p_cls",p_cls)
+                #print("target",targets[:,1])
                 lid = self.IDLoss(logits.permute((0,3,1,2)), tids.squeeze(dim=-1))
                 lclass=self.classLoss(class_infer.permute((0,3,1,2)),tcls.squeeze(dim=-1))
 
+
             # Sum loss components
             lbox, lconf, lid,lclass = lbox, lconf, lid,lclass
-            loss = torch.exp(-self.s_r) * lbox + torch.exp(-self.s_c) * lconf + torch.exp(-self.s_id) * (lid+lclass) + \
-                   (self.s_r + self.s_c + self.s_id)
+            loss = torch.exp(-self.s_r) * lbox + torch.exp(-self.s_c) * lconf + torch.exp(-self.s_id) * (lid)+torch.exp(-self.s_cls)*lclass + \
+                   (self.s_r + self.s_c +self.s_id+self.s_cls )
+            s_c,s_id,s_cls=self.s_c,self.s_id,self.s_cls
+
 
             loss *= 0.5
             loss_dict = dict(
@@ -291,7 +298,10 @@ class YOLOLayer(nn.Module):
                 lconf=lconf.cpu().item(),
                 lid=lid.cpu().item(),
                 lclass=lclass.cpu().item(),
-                nT=nT
+                nT=nT,
+                s_c=s_c.cpu().item(),
+                s_id=s_id.cpu().item(),
+                s_cls=s_cls.cpu().item()
             )
 
             return loss, loss_dict
@@ -300,6 +310,8 @@ class YOLOLayer(nn.Module):
             p_conf = torch.softmax(p_conf, dim=1)[:, 1, ...].unsqueeze(-1)
             p_emb = F.normalize(p_emb.unsqueeze(1).repeat(1, self.nA, 1, 1, 1).contiguous(), dim=-1)
             p_cls=class_classifier(p_emb)
+            _,p_cls=torch.max(p_cls,-1)
+            p_cls=p_cls.unsqueeze(-1)
             # p_emb_up = F.normalize(shift_tensor_vertically(p_emb, -self.shift[self.layer]), dim=-1)
             # p_emb_down = F.normalize(shift_tensor_vertically(p_emb, self.shift[self.layer]), dim=-1)
             # TODO 这里全部预测为 0 类，需要更改。
@@ -419,9 +431,9 @@ class YOLOLayer(nn.Module):
         return tconf, tbox, tid
 
     def build_targets_thres(self, target):
-        ID_THRESH = 0.5
-        FG_THRESH = 0.5
-        BG_THRESH = 0.4
+        ID_THRESH = 0.05
+        FG_THRESH = 0.05
+        BG_THRESH = 0.04
         assert (len(self.anchor_wh) == self.nA)
 
         tbox = torch.zeros((self.nB, self.nA, self.nGh, self.nGw, 4), device=self.anchor_wh.device)  # batch size, anchors, grid size
@@ -430,9 +442,9 @@ class YOLOLayer(nn.Module):
         tclass = -1 * torch.ones((self.nB, self.nA, self.nGh, self.nGw, 1), device=self.anchor_wh.device).long()
         for b in range(self.nB):
             t = target[target[:, 0] == b]
-            t_id = t[:, 1].clone().long()
-            t_class=t[:, 0].clone().long()
-            t = t[:, [0, 2, 3, 4, 5]]
+            t_id = t[:, 2].clone().long()
+            t_class=t[:, 1].clone().long()
+            t = t[:, [0, 3,4,5,6]]
             nTb = len(t)  # number of targets
             if nTb == 0:
                 continue
@@ -508,7 +520,7 @@ class YoloHead(nn.Module):
         self.class_classifier=nn.Linear(int(config['embedding_dim']),int(config['classes']))
         self.img_size = (int(config['width']), int(config['height']))
         self.conf_thres = config.get('conf_threshold', 0.5)
-        self.nms_thres = config.get('nms_threshold', 0.7)
+        self.nms_thres = config.get('nms_threshold', 0.5)
 
         for defs in yolo_defs:
             anchor_idxs = [int(x) for x in defs['mask'].split(',')]

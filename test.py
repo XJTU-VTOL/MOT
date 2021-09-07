@@ -1,21 +1,24 @@
+
+import torch
+from torch import nn
 import pytorch_lightning as pl
 import yaml
 import argparse
 from model import model_dict
-import torch
-from dataset.dataset import *
-def main(img_path):
-    img_size = (1088, 608)
-    height=img_size[0]
-    width=img_size[1]
+from model.yolo import  YoloTrainModel
+def test_yolo_train():
+    arg = argparse.ArgumentParser()
+    arg.add_argument("--cfg", type=str, default="train_cfg/yolo.yaml")
+    arg = pl.Trainer.add_argparse_args(arg)
+    opt = arg.parse_args()
 
-    model=torch.load("E:\\雷博书\\MOT\\lightning_logs\\version_11\\checkpoints\\epoch=19-step=1219.ckpt")
-    img = cv2.imread(str(img_path))
-    img, ratio, padw, padh = letterbox(img, height=height, width=width)
-    img = np.ascontiguousarray(img[:, :, ::-1])
-
+    f = open(opt.cfg, 'r', encoding='utf-8')
+    cfg_dict = yaml.load(f.read(), Loader=yaml.FullLoader)
+    PATH="E:\\雷博书\\MOT\\lightning_logs\\version_254\\checkpoints\\epoch=19-step=32799.ckpt"
+    new_model =model_dict[cfg_dict["name"]].load_from_checkpoint(checkpoint_path=PATH,opt=opt,config=cfg_dict["cfg"])
+    trainer = pl.Trainer(gpus=1)
+    test_dataloader=new_model.val_dataloader()
+    trainer.test( new_model, test_dataloaders=test_dataloader)
 
 if __name__=='__main__':
-    main()
-
-
+    test_yolo_train()

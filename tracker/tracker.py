@@ -55,20 +55,22 @@ class Tracker:
             for i in range(preds.shape[0]):
                 tlbrs = preds[i, :5]
                 f = preds[i, 6:]
-                track = STrack(STrack.tlbr_to_tlwh(tlbrs[:4]), tlbrs[4], f, 30)
+                track = STrack(STrack.tlbr_to_tlwh(tlbrs[:4]), tlbrs[4], f, 30,preds[i,5])
                 track.activate(self.kalman_filter, self.frame_id)
                 self.tracked_tracks.append(track)
             ids = np.array([track.track_id for track in self.tracked_tracks if track.is_activated])
             frame_id = np.array([self.frame_id for track in self.tracked_tracks if track.is_activated])
             tracked_results = preds[:, [0, 1, 2, 3, 5]]
-            tracked_results = np.concatenate([frame_id[:, np.newaxis], tracked_results, ids[:, np.newaxis]], axis=1)
+            #tracked_results = np.concatenate([frame_id[:, np.newaxis], tracked_results, ids[:, np.newaxis]], axis=1)
+            tracked_results = np.concatenate([ tracked_results, ids[:, np.newaxis]], axis=1)
 
             return tracked_results
 
         # TODO 没有用到 cls 信息
+
         if len(preds) > 0:
-            detections = [STrack(STrack.tlbr_to_tlwh(tlbrs[:4]), tlbrs[4], f, 30) for
-                          (tlbrs, f) in zip(preds[:, :5], preds[:, 6:])]
+            detections = [STrack(STrack.tlbr_to_tlwh(tlbrs[:4]), tlbrs[5], f, 30) for
+                          (tlbrs, f) in zip(preds[:, :6], preds[:, 6:])]
         else:
             # TODO How to Deal with 0 detection?
             detections = []
@@ -79,6 +81,7 @@ class Tracker:
         activated_tracks = []
         lost_tracks = []
         removed_tracks = []
+
 
         # 收集所有激活的轨迹
         # TODO: 应该是 TrackState 是 Tracked 而不是 是否激活
@@ -200,12 +203,15 @@ class Tracker:
 
         # get scores of lost tracks
         output_tracks = [track.tlbr for track in self.tracked_tracks if track.is_activated]
+        output_cls=[track.cls for track in self.tracked_tracks if track.is_activated ]
         ids = np.array([track.track_id for track in self.tracked_tracks if track.is_activated])
         cls = np.array([0 for track in self.tracked_tracks if track.is_activated])
         frame_id = np.array([self.frame_id for track in self.tracked_tracks if track.is_activated])
         if len(output_tracks) > 0:
             output_tracks = np.stack(output_tracks, axis=0)
-            output_tracks = np.concatenate([frame_id[:, np.newaxis], output_tracks, cls[:, np.newaxis], ids[:, np.newaxis]], axis=1)
+            #output_tracks = np.concatenate([frame_id[:, np.newaxis], output_tracks, cls[:, np.newaxis], ids[:, np.newaxis]], axis=1)
+            output_cls=np.expand_dims(output_cls,axis=1)
+            output_tracks = np.concatenate([output_tracks,output_cls, ids[:, np.newaxis]], axis=1)
         self.frame_id += 1
 
         # TODO 设置 Log 等级

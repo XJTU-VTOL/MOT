@@ -12,7 +12,9 @@ import numpy as np
 import torch
 from pathlib import Path
 from torch.utils.data import Dataset
+from torchvision.transforms import transforms as T
 
+transforms = T.Compose([T.ToTensor()])
 def xyxy2xywh(x):
     # Convert bounding box format from [x1, y1, x2, y2] to [x, y, w, h]
     # x, y are coordinates of center
@@ -106,27 +108,8 @@ class LoadImagesAndLabels:  # for training
         img = cv2.imread(str(img_path))  # BGR
         if img is None:
             raise ValueError('File corrupt {}'.format(img_path))
-        augment_hsv = True
-        if self.augment and augment_hsv:
-            # SV augmentation by 50%
-            fraction = 0.50
-            img_hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
-            S = img_hsv[:, :, 1].astype(np.float32)
-            V = img_hsv[:, :, 2].astype(np.float32)
+        augment_hsv = False
 
-            a = (random.random() * 2 - 1) * fraction + 1
-            S *= a
-            if a > 1:
-                np.clip(S, a_min=0, a_max=255, out=S)
-
-            a = (random.random() * 2 - 1) * fraction + 1
-            V *= a
-            if a > 1:
-                np.clip(V, a_min=0, a_max=255, out=V)
-
-            img_hsv[:, :, 1] = S.astype(np.uint8)
-            img_hsv[:, :, 2] = V.astype(np.uint8)
-            cv2.cvtColor(img_hsv, cv2.COLOR_HSV2BGR, dst=img)
 
         h, w, _ = img.shape
         img, ratio, padw, padh = letterbox(img, height=height, width=width)
@@ -144,14 +127,12 @@ class LoadImagesAndLabels:  # for training
         else:
             labels = np.array([])
 
-        # Augment image and labels
-        if self.augment:
-            img, labels, M = random_affine(img, labels, degrees=(-5, 5), translate=(0.10, 0.10), scale=(0.50, 1.20))
+
 
         plotFlag = False
         if plotFlag:
             import matplotlib
-            matplotlib.use('Agg')
+            #matplotlib.use('Agg')
             import matplotlib.pyplot as plt
             plt.figure(figsize=(50, 50))
             plt.imshow(img[:, :, ::-1])
@@ -171,13 +152,7 @@ class LoadImagesAndLabels:  # for training
             labels[:, 4] /= width
             labels[:, 5] /= height
 
-        if self.augment:
-            # random left-right flip
-            lr_flip = True
-            if lr_flip & (random.random() > 0.5):
-                img = np.fliplr(img)
-                if nL > 0:
-                    labels[:, 2] = 1 - labels[:, 2]
+
 
         img = np.ascontiguousarray(img[:, :, ::-1])  # BGR to RGB
         if self.transforms is not None:
@@ -289,7 +264,7 @@ def collate_fn(batch):
     batch_size = len(labels)
     imgs = torch.stack(imgs, 0)
     max_box_len = max([l.shape[0] for l in labels])
-    labels = [torch.from_numpy(l) for l in labels]
+    labels = [l for l in labels]
     filled_labels = torch.zeros(batch_size, max_box_len, 6)
     labels_len = torch.zeros(batch_size)
 
@@ -303,7 +278,7 @@ def collate_fn(batch):
 
 
 class JointDataset(LoadImagesAndLabels):  # for training
-    def __init__(self, root,paths, img_size=(1088, 608), augment=False, transforms=None):
+    def __init__(self, root,paths, img_size=(1088, 608), augment=False, transforms=transforms):
         '''
         :param root: the root of your dataset
         :param paths: {"key":"the path of .train file"} view datatest/test.train for example  to generate .train file run dataset/walk.py
@@ -380,7 +355,6 @@ class JointDataset(LoadImagesAndLabels):  # for training
             if labels[i, 1] > -1:
                 labels[i, 1] += self.tid_start_index[ds]
 
-        imgs = torch.from_numpy(imgs).permute(2, 0, 1).float()
         labels = torch.from_numpy(labels).float()
         return imgs, labels, img_path, (h, w)
 

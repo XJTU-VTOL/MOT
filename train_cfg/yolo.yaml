@@ -2,10 +2,10 @@ name: Yolo
 cfg:
   # 模型中图片大小， Embedding 的维度，输入图片的通道数在 .cfg 文件中
   model_cfg: model_cfg/yolov3.cfg
-  conf_threshold: 0.7
+  conf_threshold: 0.4
   IoU_threshold: 0.6
   dataset:
     root: E:\\3d_detector\\Data2021\\MIX
     path: 
-      TRAIN: new.train
-      VAL: new.val
+      TRAIN: big.train
+      VAL: big.val

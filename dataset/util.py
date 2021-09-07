@@ -90,4 +90,4 @@ def generate_train_and_validation_file(dataset_path,train_file,val_file,ratio):
     train.close()
 
 if(__name__=="__main__"):
-    generate_train_and_validation_file('..\\data','..\\new.train','..\\new.val',2)
+    generate_train_and_validation_file('E:\\3d_detector\\Data2021\\MIX','..\\big.train','..\\big.val',2)
